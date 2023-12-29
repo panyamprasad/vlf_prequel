@@ -1,0 +1,37 @@
+/*!
+ * Copyright (c) 2018 by CreditSnap Inc.  All Rights Reserved.
+ * This code or any portion thereof may not be reproduced or used in any manner
+ * whatsoever without the express written permission of the CreditSnap Inc.
+ *
+ * Author: sreeram
+ * FileName: header.component.scss
+ * Date: 11/8/18 1:06 PM
+ */
+
+:host {
+  .m-loading-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  ::ng-deep {
+    .mat-progress-bar-background {
+      opacity: 0;
+    }
+    .mat-progress-bar-buffer {
+      opacity: 0.3;
+    }
+  }
+}
+
+.m-header .m-header__top, .m-brand {
+  background: #fff !important;
+}
+
+@media (min-width: 1025px) {
+  .m-header .m-header__bottom {
+    height: 40px;
+  }
+}

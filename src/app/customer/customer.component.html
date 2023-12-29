@@ -1,0 +1,19 @@
+<ng-container *ngIf="selfLayout !== 'blank' ; else selfLayoutBlank">
+    <m-customer-header></m-customer-header>
+    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body"
+        [ngClass]="pageBodyClass$ | async">
+        <div #mContentWrapper class="m-grid__item m-grid__item--fluid m-wrapper">
+            <div *ngIf="notification && showNotification" (click)="showNotification = !showNotification"
+                class="notification">
+                <p>{{ notification }}</p>
+            </div>
+            <div class="m-content" #mContent>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <m-customer-footer></m-customer-footer>
+</ng-container>
+<ng-template #selfLayoutBlank>
+    <router-outlet></router-outlet>
+</ng-template>

@@ -1,0 +1,249 @@
+
+  .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+    top: 18px;
+  }
+  
+  .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+    height: 5px;
+    //border-radius: 5px
+  }
+  
+  .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    height: 5px!important;
+  }
+  
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    background-color: #043673;
+  }
+  
+  .mat-accent .mat-slider-thumb {
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    border: solid 2px gray;
+    bottom: -20px;
+    right: -20px;
+  }
+  
+  .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    background-color: white;
+  }
+
+  .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+    background-color: #043673 !important;
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  background-color: #043673 !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+
+.m--cs-widget .m-cs-widget--item > span:first-child {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #043673;
+  display: block;
+}
+
+.borrower-slider{
+  font-size: 16px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.m--cs-widget {
+  //blue - 007cba
+  box-shadow: 0px 0px 8px 4px #6c757d;
+  margin: 5px 0px;
+
+}
+
+.widget-border {
+  margin-top: 35px;
+  padding-left: 30px !important;
+}
+
+.mat-slider-horizontal, .mat-slider-vertical {
+  margin-top: 30px !important;
+}
+
+.secondary-btn .mat-raised-button{
+  background-color : #6c757d;
+  color: #fff;
+  margin-top: 25px;
+}
+
+.widget-border-text{
+  //padding-left: 30px !important;
+  margin-top: 15px;
+  margin-left: 225px;
+}
+
+.label-text-value{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #043673;
+    display: block;
+    text-align: center !important;
+    margin-top: 24px;
+    line-height: 1.2;
+    margin-left: 35px;
+}
+
+.label-text{
+  font-size: 12px;
+    font-weight: 300;
+    font-family: Poppins;
+    color: #212529;
+}
+
+//ebedf2
+.m-form--group-seperator-dashed {     
+  border-bottom: 1px dashed #ebedf2 !important;
+ }
+
+ .mat-form-field{
+  font-size: 16px !important;
+  //text-align: center !important;
+ }
+
+ .m-pp-subheader__title{
+  color: #343a40;
+  font-family: Bebas Nuere Regular;
+  text-align: center;
+  font-size: 30px;
+
+}
+
+.m-pp-subheader__text{
+  text-align: center;
+  color: #043673;
+  font-family: Bebas Nuere Regular;
+  font-size: 21px;
+}
+
+.m-cs-widget_text{
+  text-align: right;
+  padding-top: 5px;
+  padding-right: 25px;
+  color: #575962;
+  font-size: 13px;
+  font-weight: 300;
+  font-family: Poppins;
+  color: red;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.m-center{
+  text-align: center;
+}
+
+.m-form__actions{
+  padding-top: 0px !important;
+}
+
+.mat-form-fontstyle{
+  font-family: Calibri;
+  font-size: 18px;
+}
+
+.submit-buttons{
+  padding-left: 2px !important;
+}
+
+
+
+#color {
+  color: #043673;
+}
+#centre {
+  display: table;
+  margin: 0 auto;
+}
+
+  /* Media Query for Mobile Devices */
+  @media (max-width: 480px) {
+    body {
+        
+        .md-offer-button-right{
+          position: absolute;
+          margin-top: 10px;
+        }
+    }
+}
+  
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+    body {
+        
+        .md-offer-button-right{
+          position: absolute;
+          right: 150px;
+          margin: -37px;
+        }
+    }
+}
+  
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px){
+    body {
+        
+        .md-offer-button-right{
+          position: absolute;
+          right: 150px;
+          margin: -37px;
+        }
+    }
+}
+  
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1280px){
+    body {
+        
+        .md-offer-button-right{
+          position: absolute;
+          right: 150px;
+          margin: -37px;
+        }
+    }
+}
+  
+/* Media Query for Large screens */
+@media (min-width: 1281px) {
+    body {
+       
+        .md-offer-button-right{
+          position: absolute;
+          right: 150px;
+          margin: -37px;
+        }
+    }
+}
+.spinnerText{
+  font-size: 18px;
+  font-family:  Bebas Nuere Regular;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-top: 25px;
+}
+
+.submitSpinnerText{
+  font-size: 18px;
+  font-family:  Bebas Nuere Regular;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-top: 15px;
+}

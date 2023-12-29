@@ -1,0 +1,84 @@
+.military-dd .mat-option {
+  white-space: pre-wrap !important;
+  line-height: 26px;
+}
+
+.m-form__section--consent {
+
+  .content-text {
+    font-size: 13px;
+    margin-bottom: 0;
+    height: 30px;
+    overflow: hidden;
+    display: inline-block;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    ul {
+      margin-bottom: 0
+    }
+
+    &.showFull {
+      overflow: auto;
+      height: auto;
+    }
+  }
+}
+
+.business-year-label {
+  font-size: 18px;
+  font-family: Calibri;
+}
+.business-year {
+  padding-top: 30px;
+}
+
+.m-pp-subheader__title{
+  color: #043673;
+  font-family: Bebas Nuere Regular;
+  font-size: 21px;
+}
+
+.m-pp-subheader__subtitle{
+  font-family: Bebas Nuere Regular;
+  font-size: 18px;
+}
+
+.m-pp-subheader__creditmessage{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500
+}
+
+#color {
+  color: #043673;
+}
+
+#dropdown{
+  font-size: 18px;
+  font-family: Calibri;
+}
+.fa-eye-slash:hover,
+.fa-eye:hover {
+  cursor: pointer;
+}
+
+.mat-radio-button {
+  font-size: 18px;
+  font-family: Calibri;
+  font-weight: normal;
+  color: #878a87;
+}
+
+.conent-error{
+  font-weight: 400;
+  font-family: Calibri;
+  font-size: 14px;
+}
+
+.submitSpinnerText{
+  font-size: 18px;
+  font-family:  Bebas Nuere Regular;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-top: 15px;
+}

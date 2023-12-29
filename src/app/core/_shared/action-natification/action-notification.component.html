@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (c) 2018 by CreditSnap Inc.  All Rights Reserved.
+  ~ This code or any portion thereof may not be reproduced or used in any manner
+  ~ whatsoever without the express written permission of the CreditSnap Inc.
+  ~
+  ~ Author: sreeram
+  ~ FileName: action-notification.component.html
+  ~ Date: 11/8/18 1:06 PM
+  -->
+
+<div class="m-mat-snackbar">
+    <div class="m-mat-snackbar__message">{{data.message}}</div>
+    <div class="m-mat-snackbar__btn">
+        <button *ngIf="data.showUndoButton" type="button" mat-button color="primary" (click)="onDismissWithAction()">
+            Undo
+        </button>
+    </div>
+    <div class="m-mat-snackbar__close">
+        <button *ngIf="data.showCloseButton"
+                mat-icon-button
+                (click)="onDismiss()"
+                color="warn">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <mat-horizontal-stepper linear #stepper>
+            <mat-step label="Personal Info" completed="true"></mat-step>
+            <mat-step label="Business Info" completed="false"></mat-step>
+            <mat-step label="Documents" completed="false"></mat-step>
+            <mat-step label="Pre-Screen Result" completed="false"></mat-step>
+        </mat-horizontal-stepper>
+    </ng-container>
+    <ng-container mPortletBody>
+        <div #mScrollTop class="scrolling-div"></div>
+        <div class="m-cs-subheader" *ngIf="currentURL == '/contactInfo'">
+            <div class="mr-auto">
+                <h4 class="m-pp-subheader__title">
+                    Now, it gets personal, <strong>Grant..</strong> <br>
+                    To get you fully pre-screened and in touch with a lender,we need some more information
+                </h4>
+                <h4 class="m-pp-subheader__subtitle">
+                    Could we get your contact information?
+                </h4>
+            </div>
+        </div>
+        <mat-spinner [diameter]="20" *ngIf="loadingSubject | async"></mat-spinner>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput name="email" placeholder="Email" autocomplete="off"
+                                    [(ngModel)]="resumeapplication.email" #email="ngModel" min-max
+                                    (keydown.space)="$event.preventDefault()" required>
+                                <mat-error *ngIf="!resumeapplication.email && !email.hasError('email')">Email is
+                                    <strong>
+                                        required.
+                                    </strong>
+                                </mat-error>
+                                <mat-error *ngIf="email.hasError('email')">Email is not <strong>valid.</strong>
+                                </mat-error>
+                                <mat-hint align="start">Please enter a valid Email address</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="tel" name="contact" placeholder="Mobile Number" phone-mask
+                                    maxlength="14" [(ngModel)]="resumeapplication.mobileNumber" #primaryPhone="ngModel"
+                                    phone="true" required />
+                                <mat-error *ngIf="!primaryPhone.hasError('min-max')">Mobile number is
+                                    <strong>required.</strong>
+                                </mat-error>
+                                <mat-error *ngIf="primaryPhone.hasError('min-max')">Mobile Number is not
+                                    <strong>valid.</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__group button-centre-align">
+                <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                </mat-bar-button>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>

@@ -1,0 +1,72 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <mat-horizontal-stepper linear #stepper>
+            <mat-step label="Personal Info" completed="false"></mat-step>
+            <mat-step label="Business Info" completed="true"></mat-step>
+            <mat-step label="Documents" completed="false"></mat-step>
+            <mat-step label="Pre-Screen Result" completed="false"></mat-step>
+        </mat-horizontal-stepper>
+    </ng-container>
+    <ng-container mPortletBody>
+        <div class="m-cs-subheader" *ngIf="currentURL == '/businessDuration'">
+            <div class="mr-auto">
+                <h4 class="m-pp-subheader__title">
+                    Thank you for sharing that information!
+                </h4>
+                <h4 class="m-pp-subheader__subtitle">
+                    Grant, how long have you been in business?
+                </h4>
+            </div>
+        </div>
+
+        <div #mScrollTop class="scrolling-div"></div>
+        <mat-spinner [diameter]="20" *ngIf="loadingSubject | async"></mat-spinner>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <!-- <div class="m-form__group center">
+                    <div class="row">
+                        <div class="one small_card padding" tabindex="1">
+                            <span class="centre-align">
+                                < 2 <br>Years
+                            </span>
+                        </div>
+                        <div class="two small_card padding" tabindex="2">
+                            <span class="centre-align">2-5 <br> Years</span>
+                        </div>
+                        <div class="three small_card padding" tabindex="2">
+                            <span class="centre-align">5-7 <br> Years</span>
+                        </div>
+                        <div class="four small_card padding" tabindex="4">
+                            <span class="centre-align">>7 <br> Years</span>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="m-form__group center">
+                    <div class="row">
+                        <div class="booking-list" *ngFor="let duration of duration" (click)="onClick(duration)">
+                            <div class="small_card padding" [ngClass]="{'selected': duration == selectedItem }">
+                                <span class="centre-align">{{duration.duration}} <br> {{duration.period}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__group" *ngIf="errorMessage === true">
+                <div class="m-cs-subheader">
+                    <h4 class="m--font-danger m-pp-subheader__title__content">
+                        Oops! No application found.</h4>
+                </div>
+                <div class="m-cs-subheader">
+                    <div class="center">
+                        <h6 class="m-pp-subheader__title__content">Please try our <a href="javascript:" id="color"
+                                (click)="homePage()">OLA portal</a> to find your application.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__group button-centre-align">
+                <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                </mat-bar-button>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>

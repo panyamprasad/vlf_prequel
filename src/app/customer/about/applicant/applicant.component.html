@@ -1,0 +1,123 @@
+<!-- <mat-horizontal-stepper linear>
+    <mat-step label="About Your Business" completed=false>
+    </mat-step>
+    <mat-step label="About You" completed=true>
+    </mat-step>
+    <mat-step label="Offer" completed=false></mat-step>
+    <mat-step label="Additional Info" completed=false></mat-step>
+    <mat-step label="Review & Submit" completed=false></mat-step>
+</mat-horizontal-stepper> -->
+<div #mScrollTop class="scrolling-div"></div>
+<mat-spinner [diameter]="20" *ngIf="loadingSubject | async"></mat-spinner>
+<form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div>
+            <span class="mat-form-field-fluid vf_title">Personal Information</span>
+        </div>
+        <div class="m-form__group">
+            <div class="row">
+                <div class="col-sm-6 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput #input maxlength="50" type="text" name="firstName" placeholder="First Name"
+                            alphabetOnly autocomplete="off" [(ngModel)]="applicant.firstName" #firstName="ngModel"
+                            required>
+                        <mat-error>Legal First Name is <strong>required.</strong></mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput #input maxlength="50" type="text" name="lastName" placeholder="Last Name"
+                            alphabetOnly autocomplete="off" [(ngModel)]="applicant.lastName" #lastName="ngModel"
+                            required>
+                        <mat-error>Legal Last Name is <strong>required.</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="m-form__group">
+            <div class="row">
+                <div class="col-sm-6 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput type="tel" name="contact" placeholder="Mobile Number" phone-mask maxlength="14"
+                            [(ngModel)]="applicant.primaryPhone" #primaryPhone="ngModel" phone="true" required />
+                        <mat-error *ngIf="!primaryPhone.hasError('min-max')">Mobile number is <strong>required.</strong>
+                        </mat-error>
+                        <mat-error *ngIf="primaryPhone.hasError('min-max')">Mobile Number is not
+                            <strong>valid.</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput name="email" placeholder="Email" autocomplete="off"
+                            [(ngModel)]="applicant.email" #email="ngModel" min-max
+                            (keydown.space)="$event.preventDefault()" required>
+                        <mat-error *ngIf="!applicant.email && !email.hasError('email')">Email is
+                            <strong>
+                                required.
+                            </strong>
+                        </mat-error>
+                        <mat-error *ngIf="email.hasError('email')">Email is not <strong>valid.</strong>
+                        </mat-error>
+                        <mat-hint align="start">Please enter a valid Email address</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-form__group">
+            <div class="row">
+                <div class="col-sm-6 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput type="text" name="ssn" [(ngModel)]="applicant.ssn" placeholder="Enter your SSN"
+                            ssn-mask required />
+                        <mat-error>Your SSN is required.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-form__group">
+            <div class="row">
+                <div class="col-sm-5 m--margin-bottom-20-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input google-place matInput type="text" name="streetAddress" placeholder="Your Home Address"
+                            [(ngModel)]="address.streetAddress" #streetAddress="ngModel"
+                            (onSelect)="addressSelected($event)" required />
+                        <mat-error>Street address is <strong>required.</strong></mat-error>
+                        <mat-hint align="start">Begin typing your Home Address and edit where necessary</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-3 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput type="text" name="city" placeholder="City" [(ngModel)]="address.city"
+                            #city="ngModel" required />
+                        <mat-error>City is <strong>required.</strong></mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput type="text" name="state" placeholder="State" maxlength="2" minlength="2"
+                            alphabetOnly [(ngModel)]="address.state" #city="ngModel" required />
+                        <mat-error>State is <strong>required.</strong></mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2 m--margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid business-year-label">
+                        <input matInput type="tel" name="zipCode" placeholder="Zip" input-num min-max
+                            [(ngModel)]="address.zipCode" #zipCode="ngModel" required />
+                        <mat-error *ngIf="!address.zipCode">Zip Code is <strong>required.</strong></mat-error>
+                        <mat-error *ngIf="address.zipCode">Enter Valid zip code <strong>number.</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="m-form__group">
+            <div class="padding"><br>
+                <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                </mat-bar-button>
+            </div>
+        </div>
+    </div>
+</form>

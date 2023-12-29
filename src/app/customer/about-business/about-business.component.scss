@@ -1,0 +1,195 @@
+.military-dd .mat-option {
+  white-space: pre-wrap !important;
+  line-height: 26px;
+}
+
+.m-form__section--consent {
+  .content-text {
+    font-size: 14px;
+    margin-bottom: 0;
+    height: 34px;
+    overflow: hidden;
+    display: inline-block;
+
+    ul {
+      margin-bottom: 0;
+    }
+
+    &.showFull {
+      overflow: auto;
+      height: auto;
+    }
+  }
+}
+.business-year-label {
+  font-size: 18px;
+  font-family: Calibri;
+}
+
+.mat-radio-button {
+  font-size: 18px;
+  font-family: Calibri;
+  font-weight: normal;
+  color: #878a87;
+}
+
+.m-pp-subheader__title {
+  color: #043673;
+  font-family: Bebas Nuere Regular;
+  font-size: 21px;
+}
+
+.m-pp-subheader__subtitle {
+  font-family: Bebas Nuere Regular;
+  font-size: 18px;
+}
+
+#dropdown{
+  font-size: 18px;
+  font-family: Calibri;
+}
+
+.read-less-class {
+  color: #043673;
+}
+
+.m-form.m-form--group-seperator-dashed div.eid-ssn-number{
+  padding-top: 0px;
+}
+.breadcrumb {
+  display: table-footer-group;
+  border-radius: 5px;
+  counter-reset: flag;
+  background-color: #fff;
+  text-align: center;
+  color: #fff;
+}
+
+.breadcrumbMobile {
+  display: flex;
+  justify-content: center;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  outline: none;
+  display: block;
+  float: left;
+  font-size: 12px;
+  line-height: 36px;
+  color: white;
+  padding: 0 10px 0 60px;
+  background: #666;
+  background: linear-gradient(#666, #333);
+  position: relative;
+}
+
+// Media queries
+
+.breadcrumb a {
+  @media only screen and (max-width: 767px) {
+    padding-right: 20px;
+    padding-left: 60px;
+  }
+  @media only screen and (min-width: 768px) and (max-width: 999px) {
+    padding-right: 35px;
+    padding-left: 85px;
+  }
+  @media only screen and (min-width: 1000px) and (max-width: 1199px) {
+    padding-right: 50px;
+    padding-left: 80px;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding-right: 60px;
+    padding-left: 70px;
+  }
+}
+.breadcrumb a:first-child {
+  padding-left: 46px;
+  border-radius: 5px 0 0 5px;
+}
+.breadcrumb a:first-child:before {
+  left: 14px;
+}
+.breadcrumb a:last-child {
+  border-radius: 0 5px 5px 0;
+  padding-right: 20px;
+}
+.breadcrumb a:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -18px;
+  width: 36px;
+  height: 36px;
+
+  transform: scale(0.707) rotate(45deg);
+  z-index: 1;
+  background: #666;
+  background: linear-gradient(135deg, #666, #333);
+  // box-shadow: 2px -2px 0 2px rgba(0, 0, 0, 0.4), 3px -3px 0 2px rgba(255, 255, 255, 0.1);
+
+  box-shadow: 3px -2px 0 2px rgba(255, 255, 255, 1),
+    3px -3px 0 2px rgba(255, 255, 255, 1);
+
+  border-radius: 0 5px 0 50px;
+}
+.breadcrumb a:last-child:after {
+  content: none;
+}
+.breadcrumb a:before {
+  content: counter(flag);
+  counter-increment: flag;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin: 8px 0;
+  position: absolute;
+  top: 0;
+  left: 30px;
+  font-weight: bold;
+}
+.flat a,
+.flat a:after {
+  background:#043673;
+  color: black;
+  transition: all 0.5s;
+}
+// .flat a:before {
+//  background: #ffb822;
+// }
+
+.fa,
+.fas {
+  margin: 0.3rem;
+}
+.flat a.active,
+.flat a.active:after {
+  background: #157957;
+}
+
+.scrolling-div {
+  @media only screen and (min-width: 767px) {
+    .breadcrumb a {
+      padding-right: 35px !important;
+      padding-left: 85px !important;
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+    .breadcrumb a {
+      padding-right: 35px !important;
+      padding-left: 85px !important;
+    }
+  }
+}
+.centre-align {
+  font-size: 20px;
+  font-family: Calibri;
+  text-align: center;
+  color: #878a87;
+}
+.text-align {
+  color: black;
+  font-weight: bold;
+}

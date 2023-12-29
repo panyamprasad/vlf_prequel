@@ -1,0 +1,98 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+	<ng-container mMainPageTitle>
+        <div class="m-cs-subheader">
+            <div class="mr-auto">
+                <h3 class="m-pp-header__titles title-desktop">
+					Please upload supporting documentations so we can complete the pre-screening process.
+                </h3>
+            </div>
+        </div>
+    </ng-container>
+	<ng-container mPortletBody>
+		<div #mScrollTop class="scrolling-div"></div>
+		<form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+			<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<div class="m-form__group">
+					<div class="row">
+						<div class="col-sm-6 bodyTextSize">
+							<div>1. DD214</div>
+							<div>2. Entity Formation Document</div>
+							<div>3. Business Plan</div>
+							<div>4. Business Bank Statementr</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="row">
+								<div class="left-column">
+									<div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileChange($event)">
+										<div class="text-wrapper">
+											<div class="centered">
+												<input type="file" name="file" id="file" (change)="onFileChange($event.target.files)" multiple>
+												<label for="file">
+													<div>
+														<span class="material-icons">file_upload</span>
+														<div class="textLink">Drag file to upload</div>
+													</div></label>
+											</div>
+										</div>
+									</div>
+									<div class="button-div" (filesChangeEmiter)="onFileChange($event)">
+										<div class="text-wrapper">
+											<div class="centered">
+												<input type="file" name="file" id="file" (change)="onFileChange($event.target.files)" multiple>
+												<label for="file">
+													<div class="button">Choose File</div>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="right-column">
+									<div>
+										<span>Uploading</span>
+									</div>
+									<div>
+										<span class="attachment-text">{{attachmentOne}}</span>
+										<progress class="min-width" [value]="imageOne" max="100"></progress>
+									</div>
+									<div>
+										<span class="attachment-text">{{attachmentTwo}}</span>
+										<progress class="min-width" [value]="imageTwo" max="100"></progress>
+									</div>
+									<div>
+										<span class="attachment-text">{{attachmentThree}}</span>
+										<progress class="min-width" [value]="imageThree" max="100"></progress>
+									</div>
+									<div>
+										<span class="attachment-text">{{attachmentFour}}</span>
+										<progress class="min-width" [value]="imageFour" max="100"></progress>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 md-review-button-align m--margin-bottom-10-mobile">
+                            <!-- <mat-bar-button [options]="barButtonOptions"
+                                   *ngIf="!buttonLoading" (click)="validateSubmitForm()">
+                            </mat-bar-button> -->
+							<div class="row" *ngIf="buttonLoading">
+								<mat-spinner  [diameter]="50">{{ isLoading }}</mat-spinner>
+								<span class="submitSpinnerText">Loading, this may take a few minutes</span>
+							</div>
+                        </div>
+                        <!-- <div class="col-sm-6 md-review-button-align m--margin-bottom-10-mobile">
+                            <mat-bar-button disabled="isSubmitting" [options]="barButtonSaveAndExit"
+                                (click)="validateSaveExitForm()"
+                                matTooltip="By clicking this, you can safely save and return to your application at a later time">
+                            </mat-bar-button>
+                        </div> -->
+                    </div>
+                </div>
+			</div>
+		</form>
+	</ng-container>
+</m-portlet>

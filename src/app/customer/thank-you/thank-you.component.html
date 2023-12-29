@@ -1,0 +1,86 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <div class="m-cs-subheader"  *ngIf="appOfferStatus === 105 || code === 105">
+            <div class="mr-auto">
+                <h4 class="m-pp-subheader__title">
+                    We are sorry.
+                </h4>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container mPortletBody>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__group">
+                    <!-- User submitted application successfuly. -->
+                    <div class="m-cs-subheader center" *ngIf="success && appOfferStatus != 30 && appOfferStatus != 401 && appOfferStatus != 66 && appOfferStatus != 65 && appOfferStatus != 60 && appOfferStatus != 102 && appOfferStatus != 103 && appOfferStatus != 104 && code != 102 && code != 105 && appOfferStatus !=105">
+                        <h6 class="m-font-style">Thanks for submitting your application to PeopleFund. A representative will follow up with you to discuss next steps. Please allow 48 hours for someone to review your application</h6>
+                        <h6 class="m-font-style"> If you have any questions or would like to know the status of your application, you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>.</h6>
+						<h6 class="m-font-style">Please feel free to <a href="javascript:" id="color" (click)="returnPage()">Apply for other Loan Programs</a> that PeopleFund offers.</h6>
+                        <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                    <!-- Bad hit or froud -->
+                    <div class="m-cs-subheader center" *ngIf="appOfferStatus === 60 ">
+                        <h6 class="m-font-style">Thank you for your interest in PeopleFund. Based on the information that you have provided, we cannot continue with your application at this time. </h6>
+                        <h6 class="m-font-style">Please know that PeopleFund offers technical assistance, free of charge, to help small business owners improve their eligibility to access capital. In the meantime, if you have any questions you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>. Please allow 48 hours before calling, for someone to review your application.</h6>
+                        <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                    <!-- credit score is less than 600 -->
+                    <div class="m-cs-subheader center" *ngIf="appOfferStatus === 30 ">
+                            <h6 class="m-font-style">Thank you for your interest in PeopleFund. Based on the information that you have provided, we cannot continue with your application at this time. A representative will follow up with you to discuss your application and other programs that you may qualify for.</h6>
+                            <h6 class="m-font-style">Please know that PeopleFund offers technical assistance, free of charge, to help small business owners improve their eligibility to access capital. In the meantime, if you have any questions you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>. Please allow 48 hours before calling, for someone to review your application.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                       <!-- User credit score is less than 600 and there is no offer while re-entry application. -->
+                    <!-- <div class="m-cs-subheader center" *ngIf="appOfferStatus === 401 ">
+                            <h6 class="m-font-style">Unfortunately, we can not proceed to offer you a loan unless your credit is at 600 points or higher.</h6>
+                            <h6 class="m-font-style">For help with the rest of your application or if you believe this message may be in error, please contact us at 888-222-0017</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div> -->
+                     <!-- User clicked cancel offer button -->
+                    <div class="m-cs-subheader center" *ngIf="appOfferStatus === 102 || code === 102 ">
+                            <h6 class="m-font-style">Thank you for your interest in PeopleFund. As per your request, this application is cancelled.</h6>
+                            <h6 class="m-font-style">If you would like to discuss your application or other programs that you may qualify for, you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>.</h6>
+                            <h6 class="m-font-style">Please feel free to <a href="javascript:" id="color" (click)="returnPage()">Apply for other Loan Programs</a> that PeopleFund offers.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                        <!-- User ownership is less than 50% -->
+                    <div class="m-cs-subheader center" *ngIf="appOfferStatus === 103">
+                            <h6 class="m-font-style">Thank you for your interest in PeopleFund. Based on the information that you have provided, we cannot continue with your application at this time.</h6>
+                            <h6 class="m-font-style">If you would like to discuss your application and other programs that you may qualify for, you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>.</h6>
+                            <h6 class="m-font-style">Please feel free to <a href="javascript:" id="color" (click)="returnPage()">Apply for other Loan Programs</a> that PeopleFund offers.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                         <!-- User business is outside of Texas/TX city -->
+                    <div class="m-cs-subheader  center" *ngIf="appOfferStatus === 104">
+                            <h6 class="m-font-style">Thank you for your interest in PeopleFund. Regretfully, based on the information that you have provided, we cannot continue with your application at this time as your business is located outside the state of Texas.</h6>
+                            <h6 class="m-font-style">If you have any questions you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                        <!-- Medium Risk Applicant (10%-20%) -->
+                    <div class="m-cs-subheader center" *ngIf="success && appOfferStatus === 65">
+                            <h6 class="m-font-style">Thank you for your submitting your application. Based on the information you provided, a member of our team should review your application before presenting an offer. Please allow up to 48 hours for someone to review your application</h6>
+                            <h6 class="m-font-style">In the meantime, if you have any questions you can call us at 888-222-0017 or send us an email at <a href="javascript:" id="color">getaloan@peoplefund.org</a>.</h6>
+							<h6 class="m-font-style">Please feel free to <a href="javascript:" id="color" (click)="returnPage()">Apply for other Loan Programs</a> that PeopleFund offers.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                          <!-- High Risk Applicant (>20%) -->
+                    <div class="m-cs-subheader center" *ngIf="appOfferStatus === 66">
+                            <h6 class="m-font-style">Thank you for your interest in PeopleFund. Regretfully, based on the information that you have provided, we can’t continue with your application at this time. </h6>
+                            <h6 class="m-font-style">Please know that PeopleFund offers technical assistance, free of charge, to help small businesses owners improve their eligibility to access capital. In the meantime, if you have any questions you can call us at 888-222-0017 or send an email inquiry to <a href="javascript:" id="color">getaloan@peoplefund.org</a>. Please allow up to 48 hours for someone to review your application.</h6>
+                            <h6 class="m-font-style">Please feel free to <a href="javascript:" id="color" (click)="returnPage()">Apply for other Loan Programs</a> that PeopleFund offers.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                     <!-- Not eligibl application from creening pages -->
+                    <div class="m-cs-subheader center" *ngIf="appOfferStatus === 105 || code === 105">
+                            <h6 class="m-font-style">Thank you for your interest in PeopleFund and for taking the time to answer our initial questions. Regretfully, based on your responses you do not qualify for a loan at this time.</h6>
+                            <h6 class="m-font-style">We welcome the opportunity to speak with you about your request and resources that can help you realize your business goals. Please contact us at <a href="javascript:" id="color">getaloan@peoplefund.org</a> or 888-222-0017 to speak with a member of our lending team. You can also visit our staff page to find a team member near you.
+                            </h6>
+                            <h6 class="m-font-style">We look forward to helping you realize your small business dreams.</h6>
+                            <a href="javascript:" id="color" (click)="homePage()">Return to Home Page </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>

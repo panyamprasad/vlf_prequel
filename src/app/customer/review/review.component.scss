@@ -1,0 +1,109 @@
+.military-dd .mat-option {
+    white-space: pre-wrap !important;
+    line-height: 26px;
+  }
+  
+  .m-form__section--consent {
+    .content-text {
+      font-size: 14px;
+      margin-bottom: 0;
+      height: 34px;
+      overflow: hidden;
+      display: inline-block;
+  
+      ul {
+        margin-bottom: 0;
+      }
+  
+      &.showFull {
+        overflow: auto;
+        height: auto;
+      }
+    }
+  }
+
+  .m-pp-header__titles {
+    color: #043673;
+    font-family: Bebas Nuere Regular;
+    font-size: 21px;
+  }
+
+
+  .read-less-class {
+    color: #043673;
+  }
+
+  .bodyTextSize{
+    color: #043673;
+    font-size: 18px;
+    font-family: Bebas Nuere Regular;
+  }
+  .dropzone {
+    height: 150px;
+    display: table;
+    width: 100%;
+    background-color: #eee;
+    border: dotted 1px #043673;
+}
+
+
+.min-width {
+  min-width: -moz-available ;
+}
+
+.attachment-text{
+  font-size: 10px;
+}
+
+.button-div{
+    display: table;
+    width: 100%;
+}
+.button{
+  color: forestgreen;
+}
+.centered {
+  font-family: sans-serif;
+  font-size: 1.3em;
+  text-align:center;
+}
+.text-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+input[type='file'] {
+  display: none;
+}
+
+.material-icons{
+  font-size: 35px !important;
+  color: forestgreen;
+}
+
+.left-column{
+  max-width: 40%;
+  flex: 0 0 50%;
+}
+
+.right-column{
+  max-width: 100%;
+  flex: 0 0 50%;
+  margin-left: 10px;
+}
+  
+
+.m-pp-header__titles {
+  color: #043673;
+  font-family: Bebas Nuere Regular;
+  font-size: 21px;
+}
+
+.m-pp-subheader__titles {
+  font-family: Bebas Nuere Regular;
+  font-size: 18px;
+}
+
+.md-review-button-align{
+  text-align: center;
+  padding-top: 20px;
+}

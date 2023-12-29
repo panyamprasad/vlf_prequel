@@ -1,0 +1,39 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <div class="m-cs-subheader">
+                <div class="d-flex align-items-center">
+                <div class="mr-auto" *ngIf="keyIdentifier.primaryApplicantAdded; else primaryBorrower">
+                        <h3 class="m-cs-subheader__title">
+                            Tell me about your Co-Borrower
+                        </h3>
+                        <span class="m-cs-subheader_second-title">
+                            With Co-borrower, you can rely on joint income to qualify
+                            for better credit options.
+                        </span>
+                </div>
+                <ng-template #primaryBorrower>
+                    <div class="mr-auto" *ngIf="newApp.referralCode === 'enterpriseflt'; else defaultMessage">
+                        <h3 class="m-cs-subheader__title">
+                            Complete the Application Below to Get Started with Purchasing Your Vehicle
+                        </h3>
+                    </div>
+                    <ng-template #defaultMessage>
+                        <div class="mr-auto">
+                            <h3 class="m-pp-subheader__title title-desktop">
+                                Tell us about you
+                            </h3>
+                            <span class="m-pp-subheader__subtitle title-desktop">
+                                This will not impact your credit score
+                            </span>
+                        </div>
+                    </ng-template>
+                </ng-template>
+                </div>
+        </div>
+    </ng-container>
+    <ng-container mPortletBody>
+        <m-application-applicant (eventEmitter)="loanPurposeChanged($event)" [loadingSubject]="loadingSubject"
+                                 [parentSubject]="parentSubject" (submitEventEmitter)="onSubmit($event)">
+        </m-application-applicant>
+    </ng-container>
+</m-portlet>

@@ -1,0 +1,161 @@
+<div class="d-flex justify-content-center"  *ngIf="isLoading">
+	<div class="spinner-border" role="status">
+		<div class="row">
+			<mat-spinner  [diameter]="70">{{ isLoading }}</mat-spinner>
+			<span class="spinnerText">Loading, this may take a few minutes</span>
+		</div>
+	</div>
+</div>
+<m-portlet [options]="{ portletHead: false }">
+  <ng-container mMainPageTitle>
+    <div class="m-cs-subheader">
+      <!-- <div class="mr-auto">
+        <h1 class="m-pp-subheader__title">
+          Congratulations!
+        </h1>
+      </div> -->
+    </div>
+  </ng-container>
+
+  <ng-container mPortletBody>
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step label="About Your Business" completed="false"></mat-step>
+      <mat-step label="About You" completed="false"></mat-step>
+      <mat-step label="Offer" completed="true"></mat-step>
+      <mat-step label="Additional Info" completed=false></mat-step>
+    <mat-step label="Review &
+     Submit" completed=false></mat-step>
+    </mat-horizontal-stepper>
+
+    <div class="mr-auto">
+      <h1 class="m-pp-subheader__title">Congratulations!</h1>
+    </div>
+    <h5 class="m-pp-subheader__text">
+      We have <u>pre-approved</u> you for a loan up to
+      {{ offerValues.preApprovedLoanAmount | currency: "USD":"symbol":"1.0-0" }}
+    </h5>
+
+    <div class="m--cs-widget widget-border offer-mobile-widget">
+      <!-- <div class="row">
+        <h5 class="m-cs-widget_content-title">Your Pre-qualified loan terms</h5>
+      </div> -->
+      <div class="row text-center">
+        <div class="col-sm-3 m-cs-widget--item mat-form-fontstyle">
+          <span>{{
+            offerValues.preApprovedLoanAmount | currency: "USD":"symbol":"1.0-0"
+          }}</span>
+          <span>Maximum Loan Amount</span>
+        </div>
+        <div class="col-sm-2 m-cs-widget--item mat-form-fontstyle">
+          <span>{{ offerValues.intrestRatePercentage }}%</span>
+          <span>Annual Interest Rate</span>
+        </div>
+        <div class="col-sm-3 m-cs-widget--item mat-form-fontstyle">
+          <span>{{ offerValues.term }}</span>
+          <span>Loan Term</span>
+        </div>
+        <!-- <div class="col-sm-2 m-cs-widget--item px-1">
+        <span>{{
+          OfferValues.EstimatedPayment | currency: "USD":"symbol":"1.0-0"
+        }}</span>
+        <span>Monthly Payment<sup>**</sup></span>
+      </div> -->
+        <div class="col-sm-3 m-cs-widget--item mat-form-fontstyle">
+          <span>{{ offerValues.closingCostPercentage }}%</span>
+          <span>Closing Cost Percentage</span>
+        </div>
+      </div>
+
+      
+    </div>
+    <h5 class="m-cs-widget_text">
+      This offer expires on {{ expirationDate }}
+    </h5>
+    <form (ngSubmit)="(f.form.valid)" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+      <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__group">
+          <div class="row">
+            <div id="centre" class="col-sm-5 m--margin-bottom-10-mobile mat-form-fontstyle">
+              <mat-form-field class="mat-form-field-fluid mat-form-fontstyle">
+                <input matInput type="tel" name="loanAmount" placeholder="How much money would you like to borrow?"
+                  curreny-format maxlength="6" min-max [minValue]="minBorrowAmount" [maxValue]="offerValues.loanAmount"
+                  autocomplete="off" (keyup)="updateAmount()" [(ngModel)]="customLoanAmount" #loanAmount="ngModel"
+                  required />
+                <span matPrefix>$&nbsp;</span>
+                <!-- <span matSuffix>.00</span> -->
+                <mat-hint align="start">Please provide approximate loan amount.
+                </mat-hint>
+                <mat-error *ngIf="loanAmount.hasError('min-max')">
+                  Please enter a valid amount greater than
+                  {{ minBorrowAmount | currency: "USD":"symbol":"1.0-0" }} and
+                  lesser than
+                  {{
+                    offerValues.loanAmount | currency: "USD":"symbol":"1.0-0"
+                  }}.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- <div class="m--cs-widget"> -->
+          <div class="row">
+            <div class="col-sm-4 m-cs-widget--item px-1 label-text-value mat-form-fontstyle">
+              <span>{{
+                monthlyPayment | currency: "USD":"symbol":"1.0-0"
+              }}</span><br />
+              <span class="label-text mat-form-fontstyle">Monthly Payment</span>
+            </div>
+
+            <div class="col-sm-3 m-cs-widget--item px-1 label-text-value mat-form-fontstyle">
+              <span>{{ closingCost | currency: "USD":"symbol":"1.0-0" }}</span><br />
+              <span class="label-text mat-form-fontstyle">Closing&nbsp;Cost</span>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-12">
+            <div *ngIf="offerConsent.invalid && (offerConsent.dirty || offerConsent.touched)"
+                class="mat-error conent-error">
+                This consent is required to process your application.
+            </div>
+            <mat-checkbox name="offerConsent" 
+            color="primary" [(ngModel)]="consent.offerConsent" required #offerConsent="ngModel">
+                <span class="content-text" [ngClass]="{'showFull': showConsent2}"
+                    [innerHTML]="appConfig.consent3 | replaceString: {'submitButtonText': submitButtonText} | safe:'html' "></span>
+                <!-- <a href="javascript:" id="color"
+                    (click)="showConsent2 = !showConsent2">{{showConsent2 ? 'Read Less ...': 'Read More ...'}}</a> -->
+            </mat-checkbox>
+        </div>
+    </div>
+  <!-- <div class="m-form__group m-form__actions"> -->
+    <div class="m-form__group" body>
+      <div class="row">
+        <div class="col-sm-12 submit-buttons">
+            <mat-bar-button class="m--margin-10 secondary-btn" [options]="cancelButtonOptions" (click)="OfferCancel()"
+              matTooltip="Cancel this offer and discard my application">
+            </mat-bar-button>
+  
+            <mat-bar-button *ngIf="!buttonLoading" [options]="continueButtonOptions" (tsSubmitIfValid)="OfferContinue()"
+              matTooltip="Select this offer and continue">
+            </mat-bar-button>
+            <div class="row" *ngIf="buttonLoading">
+              <mat-spinner  [diameter]="50">{{ isLoading }}</mat-spinner>
+              <span class="submitSpinnerText">Loading, this may take a few minutes</span>
+            </div>
+            
+        </div>
+        <div class="col-sm-12">
+          <mat-bar-button disabled="isSubmitting" [options]="barButtonSaveAndExit" (tsSubmitIfValid)="onSubmitAndExit()"
+          class="md-offer-button-right"
+            matTooltip="Save this offer and return at a later time">
+          </mat-bar-button>
+        </div>
+      </div>
+    </div>
+
+  <!-- </div> -->
+    </form>
+  </ng-container>
+</m-portlet>

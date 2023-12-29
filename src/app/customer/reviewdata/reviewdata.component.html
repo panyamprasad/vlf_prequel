@@ -1,0 +1,285 @@
+<div class="d-flex justify-content-center"  *ngIf="isLoading">
+	<div class="spinner-border" role="status">
+		<div class="row">
+			<mat-spinner  [diameter]="70">{{ isLoading }}</mat-spinner>
+			<span class="spinnerText">Loading, this may take a few minutes</span>
+		</div>
+	</div>
+</div>
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+	<ng-container mMainPageTitle>
+		<div class="m-cs-subheader">
+			<div class="mr-auto">
+				<h3 class="m-pp-header__reviewdata title-desktop">
+					Submit Your Application
+				</h3>
+				<h4 class="m-pp-subheader__reviewdata">Please review your information</h4>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container mPortletBody>
+		<div #mScrollTop class="scrolling-div"></div>
+		<mat-horizontal-stepper linear>
+			<mat-step label="About Your Business" completed=false></mat-step>
+			<mat-step label="About You" completed=false></mat-step>
+			<mat-step label="Offer" completed=false></mat-step>
+			<mat-step label="Additional Info" completed=false></mat-step>
+			<mat-step label="Review & Submit" completed=true></mat-step>
+		</mat-horizontal-stepper>
+		
+		<form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+			<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<mat-card>
+					<h3 class="review-sub-label"> About Your Business</h3>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="purpose" placeholder="Loan Purpose" class="review-data" autocomplete="on" readonly [(ngModel)]="business.purpose" required>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="businessType" placeholder="Business Type"  class="review-data" autocomplete="on" readonly
+									[(ngModel)]="business.businessType" #firstName="ngModel"  required>
+									<mat-error>Business Name is <strong>required.</strong></mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid  review-label">
+									<input matInput type="text" name="businessName" placeholder="Business Name"  class="review-data" autocomplete="on" readonly
+									[(ngModel)]="business.businessName" #businessName="ngModel" required>
+									<mat-error>Business Name is <strong>required.</strong></mat-error>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="establishedDate" placeholder="Business Established (MM/DD/YYYY)" class="review-data" autocomplete="on" readonly [(ngModel)]="business.establishedDate" required>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="ein" placeholder="EIN or Business Tax ID" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.ein" required>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-5 m--margin-bottom-20-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input google-place matInput type="text" name="streetAddress"
+										placeholder="Business street number and name" [(ngModel)]="this.business.addressVO.streetAddress" class="review-data" #streetAddress="ngModel" readonly/>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-3 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="city" placeholder="City" [(ngModel)]="this.business.addressVO.city" class="review-data" readonly/>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-2 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="state" placeholder="State" maxlength="2" minlength="2" class="review-data"
+										alphabetOnly [(ngModel)]="this.business.addressVO.state" #city="ngModel" required readonly/>
+									<mat-error>State is <strong>required.</strong></mat-error>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-2 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="tel" name="zipCode" placeholder="Zip" input-num min-max class="review-data"
+										[(ngModel)]="this.business.addressVO.zipCode" #zipCode="ngModel" required readonly/>
+									<mat-error>Enter valid Zip code</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+				<mat-card>
+					<h3 class="review-sub-label">About You</h3>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="firstName" placeholder="First Name" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.firstName" required>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="lastName" placeholder="Last Name" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.lastName" required>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="primaryPhone" placeholder="Mobile Number" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.primaryPhone" required>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="email" placeholder="Email" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.email" required>
+								</mat-form-field>
+							</div>
+
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="gender" placeholder="Gender" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.gender" required>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="dob" placeholder="Date of Birth" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.dob" required>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				   
+				 	<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="status" placeholder="Veteran Status" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.status" required>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" placeholder="Business Ownership Percentage" name = "ownership" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.ownershipPercentage" required>
+								</mat-form-field>
+							</div>						
+						</div>
+					</div> 
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="ssn" placeholder="SSN" class="review-data" autocomplete="on" readonly [(ngModel)]="applicant.ssn" required>
+								</mat-form-field>
+							</div>
+						</div>
+					</div> 
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-5 m--margin-bottom-20-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input google-place matInput type="text" name="streetAddress"
+										placeholder="Home Address" [(ngModel)]="this.applicant.addressVO.streetAddress" class="review-data" #streetAddress="ngModel" readonly />
+								</mat-form-field>
+							</div>
+							<div class="col-sm-3 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="city" placeholder="City" class="review-data" [(ngModel)]="this.applicant.addressVO.city" readonly/>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-2 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="state" placeholder="State" maxlength="2" minlength="2" readonly class="review-data"
+										alphabetOnly [(ngModel)]="this.applicant.addressVO.state" #city="ngModel" required />
+									<mat-error>State is <strong>required.</strong></mat-error>
+								</mat-form-field>
+							</div>
+							<div class="col-sm-2 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="tel" name="zipCode" placeholder="Zip" class="review-data" input-num min-max 
+										[(ngModel)]="this.applicant.addressVO.zipCode" #zipCode="ngModel" required readonly/>
+									<mat-error>Enter valid Zip code</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+				<mat-card *ngIf="code != 65">
+					<h3 class="review-sub-label">Your Offer</h3>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="loanAmount" placeholder="Loan Amount Requested " class="review-data" autocomplete="on" readonly [(ngModel)]="offer.loanAmount" mUsdOnly >
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="monthlyPayment" placeholder="Monthly Payment" class="review-data" autocomplete="on" readonly [(ngModel)]="offer.monthlyPayment" >
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="closingCost" mUsdOnly placeholder="Closing Cost" class="review-data" autocomplete="on" readonly 
+									[(ngModel)]="offer.closingCost" >
+								</mat-form-field>
+							</div>
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="intrestRatePercentage" placeholder="APR" class="review-data" autocomplete="on" readonly [(ngModel)]="offer.intrestRatePercentage" >
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+					<div class="m-form__group">
+						<div class="row">
+							<div class="col-sm-6 m--margin-bottom-10-mobile">
+								<mat-form-field class="mat-form-field-fluid review-label">
+									<input matInput type="text" name="term" placeholder="Period" class="review-data" autocomplete="on" readonly [(ngModel)]="offer.term" >
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+				<div class="row">
+					<div class="col-sm-12 padding">
+						<div *ngIf="reviewConsent.invalid && (reviewConsent.dirty || reviewConsent.touched)"
+							class="mat-error conent-error">
+							This consent is required to process your application.
+						</div>
+						<mat-checkbox name="reviewConsent" class="padding"
+						color="primary" [(ngModel)]="consent.reviewConsent" required #reviewConsent="ngModel">
+							<span class="content-text " [ngClass]="{'showFull': showConsent2}"
+								[innerHTML]="appConfig.consent4 | replaceString: {'submitButtonText': submitButtonText} | safe:'html' "></span>
+							<!-- <a href="javascript:" id="color"
+								(click)="showConsent2 = !showConsent2">{{showConsent2 ? 'Read Less ...': 'Read More ...'}}</a> -->
+						</mat-checkbox>
+					</div>
+				</div>
+				<div class="m-form__group">
+					<div class="row">
+						<div class="col-sm-6 md-review-button-align m--margin-bottom-10-mobile">
+                            <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()"
+										(click)="scrollToField()" *ngIf="!buttonLoading"
+										class="md-review-button-align"
+										matTooltip="Submit your application to PeopleFund for review">
+								</mat-bar-button>
+								<div class="row" *ngIf="buttonLoading">
+									<mat-spinner  [diameter]="50">{{ isLoading }}</mat-spinner>
+									<span class="submitSpinnerText">Loading, this may take a few minutes</span>
+								</div>
+                        </div>
+						<div class="col-sm-6 md-review-button-align m--margin-bottom-10-mobile">
+							<mat-bar-button disabled="isSubmitting" [options]="barButtonSaveAndExit" (tsSubmitIfValid)="onSubmitAndExit()"
+								(click)="scrollToField()"
+								matTooltip="By clicking this, you can safely save and return to your application at a later time">
+							</mat-bar-button>
+						</div>
+					</div>
+				</div>
+				<br> &nbsp;
+			</div>
+		</form>
+	</ng-container>
+</m-portlet>

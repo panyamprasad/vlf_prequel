@@ -1,0 +1,139 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <div class="m-cs-subheader">
+            <div class="mr-auto">
+                <h3 class="m-pp-subheader__title title-desktop">
+                    See if you prequalify
+                </h3>
+                <h3 class="m-pp-subheader__title title-mobile">
+                    See your pre-qualified offers in 2 minutes. Tell us about your business
+                </h3>
+                <h4 class="m-pp-subheader__subtitle title-desktop">
+                    At no cost and without impacting your credit score
+                </h4>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container mPortletBody>
+        <div #mScrollTop class="scrolling-div"></div>
+        <div>
+            <span class="mat-form-field-fluid vf_title">Business Information</span>
+        </div>
+        <mat-spinner [diameter]="20" *ngIf="loadingSubject | async"></mat-spinner>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="text" name="businessName" placeholder="Business Name"
+                                    autocomplete="on" [(ngModel)]="business.businessName" #firstName="ngModel"
+                                    maxlength="99" required>
+                                <mat-error>Business Name is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="m--margin-bottom-10-mobile"
+                            [ngClass]="(loanPurposeConfig?.id == 'SR') ? 'col-sm-3' : 'col-sm-6'">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput [matDatepicker]="establishedpicker" [max]="maxDate" maxlength="10"
+                                    [min]="minDate" required min-max
+                                    [minValue]="loanPurposeConfig && loanPurposeConfig.minAge || 18" name="dateOfBirth"
+                                    placeholder="Business Established (MM/DD/YYYY)" [(ngModel)]="applicant.dob"
+                                    #dateOfBirth="ngModel">
+                                <mat-datepicker-toggle matSuffix [for]="establishedpicker"></mat-datepicker-toggle>
+                                <mat-datepicker #establishedpicker></mat-datepicker>
+                                <mat-error>Business Established date is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="m-form__group">
+                    <div class="centre-align"><br>
+                        <span class="mat-form-field-fluid text-align">When did you start your business?</span>
+                        <span class="mat-form-field-fluid">Business Start Date <i class='far fa-question-circle'
+                                style="font-size:20px;color:blue"></i></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <mat-select name="selectLoanPurpose" placeholder="Month" required>
+                                    <mat-option id="dropdown" value="January">January</mat-option>
+                                    <mat-option id="dropdown" value="February">February</mat-option>
+                                    <mat-option id="dropdown" value="March">March</mat-option>
+                                    <mat-option id="dropdown" value="April">April</mat-option>
+                                    <mat-option id="dropdown" value="May">May</mat-option>
+                                    <mat-option id="dropdown" value="June">June</mat-option>
+                                    <mat-option id="dropdown" value="July">July</mat-option>
+                                    <mat-option id="dropdown" value="August">August</mat-option>
+                                    <mat-option id="dropdown" value="September">September</mat-option>
+                                    <mat-option id="dropdown" value="October">October</mat-option>
+                                    <mat-option id="dropdown" value="November">November</mat-option>
+                                    <mat-option id="dropdown" value="December">December</mat-option>
+                                </mat-select>
+                                <mat-error>Select the Month.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-4 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="number" name="day" placeholder="Day" required />
+                                <mat-error>Day is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-4 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="number" name="year" placeholder="Year" maxlength="4" minlength="4"
+                                    required />
+                                <mat-error>Year is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-5 m--margin-bottom-20-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input google-place matInput type="text" name="streetAddress"
+                                    placeholder="Business street number and name" [(ngModel)]="address.streetAddress"
+                                    #streetAddress="ngModel" (onSelect)="addressSelected($event)" required />
+                                <mat-error>Street Address is <strong>required.</strong></mat-error>
+                                <mat-hint align="start" class="not-empty-select">Begin typing your Business Address and
+                                    edit where necessary
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-3 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="text" name="city" placeholder="City" [(ngModel)]="address.city"
+                                    #city="ngModel" required />
+                                <mat-error>City is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-2 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="text" name="state" placeholder="State" maxlength="2" minlength="2"
+                                    alphabetOnly [(ngModel)]="address.state" #city="ngModel" required />
+                                <mat-error>State is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-2 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="tel" name="zipCode" placeholder="Zip" input-num min-max
+                                    [(ngModel)]="address.zipCode" #zipCode="ngModel" required />
+                                <mat-error *ngIf="!address.zipCode">Zip Code is <strong>required.</strong></mat-error>
+                                <mat-error *ngIf="address.zipCode">Enter Valid zip code <strong>number.</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__group">
+                <div class="padding"><br>
+                    <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                    </mat-bar-button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>

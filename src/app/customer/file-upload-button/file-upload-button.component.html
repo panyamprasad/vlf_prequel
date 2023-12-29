@@ -1,0 +1,19 @@
+<div class="column">
+    <div>
+        <button class="btn file-upload-button">
+            <input type="file"
+            accept="image/x-png,image/jpeg,application/pdf,application/msword"
+            #fileInput
+            (change)="onFileSelect(fileInput)"
+            
+            />
+        </button>
+    </div>
+    <!-- <div>
+        <span class="file-info text-danger">{{ fileError }}</span>
+        <span  *ngIf="fileInfo"><mat-icon (click)="removeFile(fileInfo)" class="file-delete-button">delete_outline</mat-icon></span>
+        <span class="file-info">{{ fileInfo }}</span>
+    </div> -->
+</div>
+<br>
+

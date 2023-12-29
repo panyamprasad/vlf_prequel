@@ -1,0 +1,67 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$mat-green: (
+  50 : #eaf4e0,
+  100 : #cce3b3,
+  200 : #aad080,
+  300 : #87bd4d,
+  400 : #6eaf26,
+  500 : #043673,
+  600 : #4d9900,
+  700 : #438f00,
+  800 : #3a8500,
+  900 : #297400,
+  A100 : #bbffa2,
+  A200 : #96ff6f,
+  A400 : #70ff3c,
+  A700 : #5eff23,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$people-fund-app-primary: mat-palette($mat-green, 500, 400, 700);
+// mat-palette(color-group, default-color, light-color, dark-color);
+$people-fund-app-accent:  mat-palette($mat-green, 500, 400, 700);
+
+// The warn palette is optional (defaults to red).
+$people-fund-app-warn:    mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as `color` or `typography`.
+$people-fund-app-theme: mat-light-theme(
+    $people-fund-app-primary,
+    $people-fund-app-accent,
+    $people-fund-app-warn,  
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($people-fund-app-theme);
+@include mat-core-theme($people-fund-app-theme);
+@include mat-button-theme($people-fund-app-theme);
+@include mat-checkbox-theme($people-fund-app-theme);

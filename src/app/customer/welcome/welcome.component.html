@@ -1,0 +1,48 @@
+<section class="login-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 content-sec">
+                <br><br>
+                <div>
+                    <h1>WELCOME!</h1>
+                </div><br>
+                <div class="text-color">Veteran Loan Fund matches military veterans & their spouses <br> with loan
+                    capital to start or grow
+                    their small business.</div><br>
+                <div class="text-color">Qualifying veteran-owned small businesses are at least 15% <br> owned by a
+                    honorably discharged
+                    military veteran or the <br> spouse of an honorably discharged military veteran.
+                </div><br><br><br>
+                <div class="text-color">Please follow the link below to see how we can help you get the funding
+                    that you need!</div>
+                <br>
+                <div class="flex items-center mt-8">
+                    <div class="flex flex-0 items-center">
+                        <img class="flex-0 image-sec" src="assets/images/avatars/female-18.jpg">
+                        <img class="flex-0 image-sec" src="assets/images/avatars/female-11.jpg">
+                        <img class="flex-0 image-sec" src="assets/images/avatars/male-09.jpg">
+                        <img class="flex-0 image-sec" src="assets/images/avatars/male-16.jpg">
+                        <a class="ml-4 font-medium tracking-tight text-gray-400">Powered by VeteranFund LLC</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-1/2 content-sec1"></div>
+            <div class="col-md-4 login-sec">
+                <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+                    <a>
+                        <img src="assets/images/logo/logo1_vlf.png" class="logo_custom">
+                    </a>
+                    <div class="m-form__group button-centre-align">
+                        <mat-bar-button [options]="barButtonNew" (tsSubmitIfValid)="onSubmitNew()">
+                        </mat-bar-button>
+                    </div>
+                    <div class="m-form__group button-centre-align">
+                        <mat-bar-button [options]="barButtonExisting" (tsSubmitIfValid)="onSubmitExisting()">
+                        </mat-bar-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

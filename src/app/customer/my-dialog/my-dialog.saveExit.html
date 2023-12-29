@@ -1,0 +1,11 @@
+<div class ="basic-container dialog-body">
+    <h1 mat-dialog-title>Confirm</h1>
+    <div mat-dialog-content><p>Would you like to Save & Exit?</p></div>
+    <div class="row col-sm-12 m--margin-bottom-5-mobile">
+      <div class="btn mx-auto d-block">
+        <mat-bar-button class="m--margin-10" 
+          [options]="continueButtonOptions" href="https://peoplefund.org" (click)="onYesClick()"></mat-bar-button>   
+        <mat-bar-button [options]="cancelButtonOptions" (click)="onNoClick()"></mat-bar-button>
+      </div>
+    </div>
+</div>

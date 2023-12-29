@@ -1,0 +1,54 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <mat-horizontal-stepper linear #stepper>
+            <mat-step label="Personal Info" completed="true"></mat-step>
+            <mat-step label="Business Info" completed="false"></mat-step>
+            <mat-step label="Documents" completed="false"></mat-step>
+            <mat-step label="Pre-Screen Result" completed="false"></mat-step>
+        </mat-horizontal-stepper>
+    </ng-container>
+    <ng-container mPortletBody>
+        <div class="m-cs-subheader" *ngIf="currentURL == '/screeningProcess'">
+            <div class="mr-auto">
+                <h4 class="m-pp-subheader__title">
+                    Grant, we use your SSN and DOB to run a soft credit <br>
+                    check for pre-screening purposes
+                </h4>
+                <h4 class="m-pp-subheader__subtitle">
+                    Don't worry, this does not impact your credit score!
+                </h4>
+            </div>
+        </div>
+        <div #mScrollTop class="scrolling-div"></div>
+        <mat-spinner [diameter]="20" *ngIf="loadingSubject | async"></mat-spinner>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput type="text" [(ngModel)]="resumeapplication.ssn" name="ssn"
+                                    placeholder="Enter your SSN" ssn-mask required />
+                                <mat-error>Your SSN is required.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid business-year-label">
+                                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateOfBirthPicker"
+                                    name="dateOfBirth" placeholder="Date of birth (MM/DD/YYYY)" #dateOfBirth="ngModel"
+                                    [(ngModel)]="resumeapplication.dob" required min-max>
+                                <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #dateOfBirthPicker></mat-datepicker>
+                                <mat-error>Date of Birth is <strong>required.</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__group button-centre-align">
+                <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                </mat-bar-button>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>

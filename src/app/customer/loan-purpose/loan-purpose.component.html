@@ -1,0 +1,69 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <div class="m-cs-subheader">
+            <div class="mr-auto">
+                <h4 class="m-pp-subheader">
+                    Welcome to pre-Qualification
+                </h4>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container mPortletBody>
+        <div #mScrollTop class="scrolling-div"></div>
+        <mat-spinner [diameter]="20" *ngIf="loadingSubject | async"></mat-spinner>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit body-text padding">
+                How would you use the money to improve your business?
+            </div>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__group center">
+                    <div class="row">
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\wrench.png">
+                            <span class="centre-align">Buy Equipment</span>
+                        </div>
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\project-management.png">
+                            <span class="centre-align">Working Capital</span>
+                        </div>
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\borrow.png">
+                            <span class="centre-align">Debt Refinance</span>
+                        </div>
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\check-list.png">
+                            <span class="centre-align">Inventory</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__group center">
+                    <div class="row">
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\online-shop.png">
+                            <span class="centre-align">Buy Existing business</span>
+                        </div>
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\payroll.png">
+                            <span class="centre-align">Payroll</span>
+                        </div>
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\hand.png">
+                            <span class="centre-align">State a Franchise</span>
+                        </div>
+                        <div class="card padding" clickColor>
+                            <img class="icon-height-width" src="assets\icons\mortgage.png">
+                            <span class="centre-align">Real Estate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__group">
+                    <div class="padding"><br>
+                        <mat-bar-button [options]="barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                        </mat-bar-button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </ng-container>
+</m-portlet>

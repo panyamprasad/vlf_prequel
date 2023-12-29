@@ -1,0 +1,112 @@
+/*
+ * Copyright (c) 2018 by CreditSnap Inc.  All Rights Reserved.
+ * This code or any portion thereof may not be reproduced or used in any manner
+ * whatsoever without the express written permission of the CreditSnap Inc.
+ *
+ * Author: sreeram
+ * FileName: sunburst.css
+ * Date: 11/8/18 1:06 PM
+ */
+
+/*
+
+Sunburst-like style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #000;
+    color: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #aeaeae;
+    font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+    color: #e28964;
+}
+
+.hljs-string {
+    color: #65b042;
+}
+
+.hljs-subst {
+    color: #daefa3;
+}
+
+.hljs-regexp,
+.hljs-link {
+    color: #e9c062;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-tag,
+.hljs-name {
+    color: #89bdff;
+}
+
+.hljs-class .hljs-title,
+.hljs-doctag {
+    text-decoration: underline;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-number {
+    color: #3387cc;
+}
+
+.hljs-params,
+.hljs-variable,
+.hljs-template-variable {
+    color: #3e87e3;
+}
+
+.hljs-attribute {
+    color: #cda869;
+}
+
+.hljs-meta {
+    color: #8996a8;
+}
+
+.hljs-formula {
+    background-color: #0e2231;
+    color: #f8f8f8;
+    font-style: italic;
+}
+
+.hljs-addition {
+    background-color: #253b22;
+    color: #f8f8f8;
+}
+
+.hljs-deletion {
+    background-color: #420e09;
+    color: #f8f8f8;
+}
+
+.hljs-selector-class {
+    color: #9b703f;
+}
+
+.hljs-selector-id {
+    color: #8b98ab;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}

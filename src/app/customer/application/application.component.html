@@ -1,0 +1,457 @@
+<m-portlet [loading$]="loading$ | async" [loadingSubject]="loadingSubject" [options]="{portletHead: false}">
+    <ng-container mMainPageTitle>
+        <div class="m-cs-subheader">
+            <div *ngIf="keyIdentifier.isCashApplication; else nonCashApplicationTitle"
+                 class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h3 class="m-cs-subheader__title">
+                        Complete the Request Form Below to Get Started with Purchasing Your Vehicle
+                    </h3>
+                </div>
+            </div>
+            <ng-template #nonCashApplicationTitle>
+                <div class="d-flex align-items-center">
+                    <div *ngIf="keyIdentifier.primaryApplicantAdded; else primaryBorrower" class="mr-auto">
+                        <h3 class="m-cs-subheader__title">
+                            Tell me about your Co-Borrower
+                        </h3>
+                        <span class="m-cs-subheader_second-title">
+                            With Co-borrower, you can rely on joint income to qualify
+                            for better credit options.
+                        </span>
+                    </div>
+                    <ng-template #primaryBorrower>
+                        <div *ngIf="newApp.referralCode === 'enterpriseflt'; else defaultMessage" class="mr-auto">
+                            <h3 class="m-cs-subheader__title">
+                                Complete the Application Below to Get Started with Purchasing Your Vehicle
+                            </h3>
+                        </div>
+                        <ng-template #defaultMessage>
+                            <div class="mr-auto">
+                                <h3 class="m-cs-subheader__title title-desktop">
+                                    See your pre-qualified offers in as little as 2 minutes.
+                                </h3>
+                                <h3 class="m-cs-subheader__title title-mobile">
+                                    See your pre-qualified offers in as little as 2 minutes, without affecting your
+                                    credit score.
+                                </h3>
+                                <span class="m-cs-subheader_second-title title-desktop">
+                                Seeing your loan options won't affect your credit score.
+                            </span>
+                            </div>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </ng-template>
+        </div>
+    </ng-container>
+    <ng-container mPortletBody>
+        <form #f="ngForm" (ngSubmit)="f.form.valid" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div *ngIf="!keyIdentifier.primaryApplicantAdded" class="m-form__group">
+                    <div class="row">
+                        <div *ngIf="keyIdentifier.referralCode === 'enterpriseflt'; else nonEnterpriseflt"
+                             class="col-sm-6 m--margin-bottom-10-mobile">
+                            <h5 class="m--font-brand">Company Car Purchase (Cash)</h5>
+                        </div>
+                        <ng-template #nonEnterpriseflt>
+                            <div class="col-sm-6 m--margin-bottom-10-mobile">
+                                <mat-form-field class="mat-form-field-fluid">
+                                    <mat-select (selectionChange)="loanPurposeChanged($event)"
+                                                [(ngModel)]="keyIdentifier.loanPurpose"
+                                                name="selectedProductName"
+                                                placeholder="What type of loan are you interested in?" required>
+                                        <mat-option *ngFor="let lp of productConfig.loanPurpose"
+                                                    [value]="lp.loanPurpose">
+                                            {{lp.title}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>Select the loan purpose</mat-error>
+                                    <mat-hint align="start">Please select the loan purpose</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </ng-template>
+                        <div *ngIf="!keyIdentifier.isCashApplication"
+                             class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <mat-select (selectionChange)="applicationType($event)"
+                                            [(ngModel)]="keyIdentifier.applicationType"
+                                            name="selectedApplicationType"
+                                            placeholder="Application Type" required>
+                                    <mat-option value="I">Individual</mat-option>
+                                    <mat-option value="J">Joint with Co-borrower</mat-option>
+                                </mat-select>
+                                <mat-error>Select the application type</mat-error>
+                                <mat-hint align="start">
+                                    Select "Joint with Co-borrower" if you are applying for joint credit and are relying
+                                    on joint income as the basis for repayment of the credit requested
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #firstName="ngModel" [(ngModel)]="applicant.firstName" alphabetOnly
+                                       autocomplete="off" matInput
+                                       name="firstName" placeholder="First Name" required
+                                       type="text">
+                                <mat-error>First Name is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #lastName="ngModel" [(ngModel)]="applicant.lastName" alphabetOnly
+                                       autocomplete="off" matInput
+                                       name="lastName" placeholder="Last Name" required
+                                       type="text">
+                                <mat-error>Last Name is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #primaryPhone="ngModel" [(ngModel)]="applicant.primaryPhone" matInput
+                                       maxlength="14" name="contact"
+                                       phone="true"
+                                       phone-mask placeholder="Mobile Number" required
+                                       type="tel"/>
+                                <mat-error *ngIf="primaryPhone.hasError('min-max')">Contact number is
+                                    <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #email="ngModel" [(ngModel)]="applicant.email" autocomplete="off" email="true"
+                                       matInput name="email" placeholder="E-mail" required
+                                       type="email">
+                                <mat-error>Email is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="keyIdentifier.isCashApplication; else nonCashApplication"
+                     class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-20-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #vin="ngModel" [(ngModel)]="collateral.vin" autocomplete="off" matInput
+                                       maxlength="17" minlength="17" name="vin"
+                                       placeholder="Vehicle Identification Number"
+                                       required type="text" vin-check>
+                                <mat-error *ngIf="vin.hasError('length-error')">VIN must be 17 digits</mat-error>
+                                <mat-error *ngIf="vin.hasError('not-valid-vin')">Invalid VIN, please enter valid VIN
+                                </mat-error>
+                                <mat-hint align="start">Please enter <strong>Vehicle Identification Number</strong>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6 m--margin-bottom-20-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #mileage="ngModel" [(ngModel)]="collateral.mileage" autocomplete="off" matInput
+                                       name="mileage"
+                                       placeholder="Mileage" required type="number">
+                                <mat-error>Please enter approximate vehicle mileage</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #nonCashApplication>
+                    <div class="m-form__group">
+                        <div class="row">
+                            <div class="col-sm-6 m--margin-bottom-30-mobile">
+                                <mat-form-field class="mat-form-field-fluid">
+                                    <input #salaryString="ngModel" [(ngModel)]="employment.salaryString" curreny-format
+                                           matInput
+                                           name="income"
+                                           placeholder="Gross Annual Income" required type="tel"/>
+                                    <span matPrefix>$&nbsp;</span>
+                                    <span matSuffix>.00</span>
+                                    <mat-hint>Your before tax <strong>Gross Annual Income</strong> can include bonuses,
+                                        commissions, tips, alimony, child support, etc. Please do not include
+                                        non-applicant
+                                        income
+                                    </mat-hint>
+                                    <mat-error>Gross Annual Income is required</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-6 m--margin-bottom-10-mobile">
+                                <mat-form-field class="mat-form-field-fluid">
+                                    <input #costString="ngModel" [(ngModel)]="residence.costString" curreny-format
+                                           matInput
+                                           name="residenceCost" placeholder="Rent/Mortgage Pmt($)" required
+                                           type="tel"/>
+                                    <span matPrefix>$&nbsp;</span>
+                                    <span matSuffix>.00</span>
+                                    <mat-error>Housing Cost is <strong>required</strong></mat-error>
+                                    <mat-hint align="start">
+                                        Estimate monthly housing cost. Homeowners, include all mortgage payments (first
+                                        &
+                                        second mortgages, and home equity loans). Renters, please enter monthly rent
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <div class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-5 m--margin-bottom-20-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #streetAddress="ngModel" (onSelect)="addressSelected($event)"
+                                       [(ngModel)]="address.streetAddress" google-place
+                                       matInput
+                                       name="streetAddress" placeholder="Home street number and name"
+                                       required type="text"/>
+                                <mat-error>Street address is <strong>required</strong></mat-error>
+                                <mat-hint align="start">Start typing your street address and select from the list and
+                                    edit if
+                                    required
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-3 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #city="ngModel" [(ngModel)]="address.city" matInput name="city"
+                                       placeholder="City" required type="text"/>
+                                <mat-error>City is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-2 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #city="ngModel" [(ngModel)]="address.state" alphabetOnly matInput maxlength="2"
+                                       minlength="2"
+                                       name="state"
+                                       placeholder="State" required type="text"/>
+                                <mat-error>State is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-2 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #zipCode="ngModel" [(ngModel)]="address.zipCode" input-num matInput
+                                       name="zipCode"
+                                       placeholder="Zip" required type="tel"/>
+                                <mat-error>Zip must be 5 digits</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!keyIdentifier.isCashApplication" class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #ssn="ngModel" [(ngModel)]="applicant.ssn" matInput name="ssn"
+                                       placeholder="Social Security Number"
+                                       required ssn-mask type="tel"/>
+                                <mat-error *ngIf="ssn.hasError('min-max')">Social Security number must be 9 digits
+                                </mat-error>
+                                <mat-hint align="start">Don't worry, <strong>no impact to your credit
+                                    score</strong>, and your information is safe and secure with us.
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <input #dateOfBirth="ngModel" [(ngModel)]="applicant.dateOfBirth"
+                                       [matDatepicker]="dateOfBirthPicker"
+                                       [max]="maxDate" [min]="minDate" matInput
+                                       min-max name="dateOfBirth"
+                                       placeholder="Date of Birth (mm/dd/yyyy)" required>
+                                <mat-datepicker-toggle [for]="dateOfBirthPicker" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #dateOfBirthPicker></mat-datepicker>
+                                <mat-error *ngIf="dateOfBirth.hasError('min')">You must be 18 years or older</mat-error>
+                                <mat-error *ngIf="dateOfBirth.hasError('max')">If your date of birth is correct,
+                                    please call us for processing your loan application
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="keyIdentifier.loanPurpose  === 'R' || !keyIdentifier.isCashApplication"
+                     class="m-form__group">
+                    <div class="row">
+                        <div *ngIf="keyIdentifier.loanPurpose  === 'R'" class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid m-option__label-long">
+                                <mat-select [(ngModel)]="militaryActiveDutyIndicator" class="m-option__label-long"
+                                            name="militaryActiveDutyIndicator"
+                                            placeholder="Select your military status" required>
+                                    <mat-option value="No">I am NOT an active member of military or a spouse or
+                                        dependent of an active military member.
+                                    </mat-option>
+                                    <mat-option value="Yes"> I am an active member of military or a spouse or
+                                        dependent of an active military member
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint align="start">Federal law provides
+                                    protections to members of the armed forces and
+                                    their dependents in relation to extension of credit.
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="!keyIdentifier.primaryApplicantAdded" class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <mat-select [(ngModel)]="citizenInd" name="citizenInd"
+                                            placeholder="Select your citizen status" required>
+                                    <mat-option value="Yes">I am a US citizen</mat-option>
+                                    <mat-option value="No">I am not a US citizen</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!(keyIdentifier.loanPurpose  === 'R' || keyIdentifier.isCashApplication) && keyIdentifier.primaryApplicantAdded"
+                     class="m-form__group">
+                    <div class="row">
+                        <div class="col-sm-6 m--margin-bottom-10-mobile">
+                            <mat-form-field class="mat-form-field-fluid">
+                                <mat-select [(ngModel)]="citizenInd" name="citizenInd"
+                                            placeholder="Select your citizen status" required>
+                                    <mat-option value="true">I am a US citizen</mat-option>
+                                    <mat-option value="false">I am not a US citizen</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="keyIdentifier.primaryApplicantAdded || keyIdentifier.applicationType === 'I'"
+                     class="m-form__group m-form__section--consent">
+                    <div *ngIf="keyIdentifier.isCashApplication" class="row">
+                        <div class="col-sm-12 m--margin-bottom-20">
+                            <div *ngIf="softInquiryConsent.invalid && (softInquiryConsent.dirty || softInquiryConsent.touched)"
+                                 class="mat-error">
+                                This consent is required to process your application.
+                            </div>
+                            <mat-checkbox #softInquiryConsent="ngModel" [(ngModel)]="consent.softInquiryConsent"
+                                          [checked]="consent.softInquiryConsent"
+                                          class="" name="softInquiryConsent"
+                                          required>
+                                By providing information about yourself in this request form and clicking the
+                                "{{submitButtonText}}" button below,
+                                you consent, acknowledge, and agree to <a (click)="hideMe[i] = !hideMe[i]"
+                                                                          [hidden]="hideMe[i]"
+                                                                          href="javascript:">Read More
+                                ...</a>
+                                <span *ngIf="hideMe[i]">the following:</span>
+
+                                <div [hidden]="!hideMe[i]" [ngClass]="'mt-content border-grey-steel'">
+                                    <ul>
+                                        <li>Consent for use of <a href="https://abc-cx.creditsnap.com/disclosures"
+                                                                  target="_new">Electronic Disclosures and
+                                            Communications</a>
+                                        </li>
+                                        <li>
+                                            Consent for <a href="https://abc-cx.creditsnap.com/disclosures"
+                                                           target="_new">Security
+                                            Policy</a> and <a href="https://abc-cx.creditsnap.com/disclosures"
+                                                              target="_new">Terms
+                                            of Use</a>
+                                        </li>
+                                        <li>
+                                            You agree that you received the ABC Lender’s <a
+                                                href="https://abc-cx.creditsnap.com/privacy-policy/" target="_new">Privacy
+                                            Policy</a>. You also verified that you can read and print or keep these
+                                            electronic
+                                            documents and you certify that your selections and information in this form
+                                            are
+                                            true, correct and complete.
+                                        </li>
+                                    </ul>
+                                    <a (click)="hideMe[i] =!hideMe[i]" href="javascript:">Read Less</a>
+                                </div>
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                    <div *ngIf="!(keyIdentifier.isCashApplication)" class="row">
+                        <div class="col-sm-12 m--margin-bottom-20">
+                            <div *ngIf="softInquiryConsent.invalid && (softInquiryConsent.dirty || softInquiryConsent.touched)"
+                                 class="mat-error">
+                                This consent is required to process your application.
+                            </div>
+                            <mat-checkbox #softInquiryConsent="ngModel" [(ngModel)]="consent.softInquiryConsent"
+                                          [checked]="consent.softInquiryConsent"
+                                          class="" name="softInquiryConsent"
+                                          required>By providing information about yourself in this
+                                pre-qualification request and clicking the "{{submitButtonText}}" button below,
+                                you consent, acknowledge, and agree to <a (click)="hideMe[i] = !hideMe[i]"
+                                                                          [hidden]="hideMe[i]"
+                                                                          href="javascript:">Read More
+                                    ...</a>
+                                <span *ngIf="hideMe[i]">the following:</span>
+
+                                <div [hidden]="!hideMe[i]" [ngClass]="'mt-content border-grey-steel'">
+                                    <ul>
+                                        <li>
+                                            Consent for use of <a href="https://abc-cx.creditsnap.com/disclosures"
+                                                                  target="_new">Electronic Disclosures and
+                                            Communications</a>
+                                        </li>
+                                        <li>
+                                            Consent for <a href="https://abc-cx.creditsnap.com/disclosures"
+                                                           target="_new">Security
+                                            Policy</a> and <a href="https://abc-cx.creditsnap.com/disclosures"
+                                                              target="_new">Terms
+                                            of Use</a>
+                                        </li>
+                                        <li>{{'MESSAGES.DISCLOSURE.SOFT_INQUIRY.CONSENT_1' | translate}}</li>
+                                        <li>{{'MESSAGES.DISCLOSURE.SOFT_INQUIRY.CONSENT_UPTO_LENDER' | translate}}</li>
+                                        <li>
+                                            You agree that you received the ABC Lender’s <a
+                                                href="https://abc-cx.creditsnap.com/privacy-policy/" target="_new">Privacy
+                                            Policy</a>. You also verified that you can read and print or keep these
+                                            electronic
+                                            documents and you certify that your selections and information in this form
+                                            are
+                                            true, correct and complete.
+                                        </li>
+                                    </ul>
+                                    <a (click)="hideMe[i] =!hideMe[i]" href="javascript:">Read Less</a>
+                                </div>
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <mat-checkbox #marComConsent="ngModel" [(ngModel)]="consent.marComConsent"
+                                          name="marComConsent">
+                                By clicking the "{{submitButtonText}}
+                                " {{'MESSAGES.DISCLOSURE.MARKETING_INQUIRY.CONSENT_MARKETING_1' | translate}} <a
+                                    (click)="hideMeMarketing[j] = !hideMeMarketing[j]" [hidden]="hideMeMarketing[j]"
+                                    href="javascript:">Read More ...</a>
+                                <span [hidden]="!hideMeMarketing[j]" [ngClass]="'mt-content border-grey-steel'">
+                            {{'MESSAGES.DISCLOSURE.MARKETING_INQUIRY.CONSENT_MARKETING_2' | translate}}
+                                    <div><br/><a (click)="hideMeMarketing[j] =!hideMeMarketing[j]"
+                                                 href="javascript:">Read Less</a></div>
+                        </span>
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__group">
+                    <div class="m-form__actions">
+                        <div *ngIf="keyIdentifier.errorCode; else continueProcess" class="m-cs-subheader">
+                            <h5 class="m--font-danger">{{keyIdentifier.errorMessage}}</h5>
+                            <br/>
+                            <a (click)="goBackToMyApp()" mat-button routerLinkActive="active"
+                               style="display: table-footer-group">Click Here</a>
+                        </div>
+                        <ng-template #continueProcess>
+                            <mat-bar-button (click)="scrollToField()" (tsSubmitIfValid)="onSubmit()"
+                                            [options]="barButtonOptions"
+                                            matTooltip="No impact to your credit score, continue to check your loan options">
+                            </mat-bar-button>
+                            <div *ngIf="!keyIdentifier.isCashApplication" class="m-cs-subheader">
+                                <span class="m-cs-subheader_second-title mat-form-field">There is no impact on your credit score when checking your rates</span>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>

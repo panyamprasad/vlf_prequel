@@ -1,0 +1,28 @@
+<div #mScrollTop class="scrolling-div"></div>
+<div mPortlet [options]="options">
+    <!--<div #mPortletSplashScreen class="m-splash-screen">
+        <img arc="assets/images/logo/logo_ifs.png" style="width: 290px; margin-bottom: 20px;"
+             alt="Innovative Funding Service"/>
+        &lt;!&ndash;here we will have circle progress bar&ndash;&gt;
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>-->
+    <div class="m-cs-subheader" #mMainPageTitle>
+        <ng-content select="[mMainPageTitle]"></ng-content>
+    </div>
+    <div #mPortlet class="m-portlet m-portlet--rounded-force">
+        <div class="m-portlet__head m-portlet__head--fit" #mPortletHead>
+            <div class="m-portlet__head-caption">
+                <ng-content select="[mPortletHeadTitle]"></ng-content>
+            </div>
+            <div class="m-portlet__head-tools" #mPortletHeadTools *ngIf="headTools">
+                <ng-content select="[mPortletHeadTools]"></ng-content>
+            </div>
+        </div>
+        <div class="m-portlet__body" #mPortletBody>
+            <ng-content select="[mPortletBody]"></ng-content>
+        </div>
+        <div class="m-portlet__foot" #mPortletFooter>
+            <ng-content select="[mPortletFooter]"></ng-content>
+        </div>
+    </div>
+</div>

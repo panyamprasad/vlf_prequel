@@ -1,0 +1,39 @@
+<m-portlet [options]="{portletHead: false}" [loadingSubject]="loadingSubject" [loading$]="loading$ | async">
+    <ng-container mMainPageTitle>
+        <div class="m-cs-subheader">
+            <div class="mr-auto">
+                <h3 class="m-pp-subheader title-desktop">
+                    Welcome
+                </h3>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container mPortletBody>
+        <div #mScrollTop class="scrolling-div"></div>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" class="m-form m-form--group-seperator-dashed" novalidate>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__group">
+                    <div class="centre-align-landing"><br>
+                        <span class="mat-form-field-fluid">How much money would you like to start or grow your business?</span><br>
+                        <div>
+                            <span style="position: absolute; margin-left: 4px; margin-top: 1px;">$</span>
+                            <input class="input-box" type="tel" style="padding-left: 14px;"
+                                    name="fundingAmount" mUsdOnly maxlength="10" phone="true"
+                                    [(ngModel)]="landingCustomer.fundingAmount"
+                                    #fundingAmount="ngModel" 
+                                    required
+                            ><br>
+                            <mat-error *ngIf="!landingCustomer.fundingAmount && fundingAmount.touched">Funding amount is <strong>required.</strong></mat-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__group">
+                <div class="centre-align-landing"><br>
+                    <mat-bar-button [options]= "barButtonOptions" (tsSubmitIfValid)="onSubmit()">
+                    </mat-bar-button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</m-portlet>
